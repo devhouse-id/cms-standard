@@ -1,15 +1,17 @@
 version: '3'
 services:
   web:
-   image: tutum/apache-php
-   environment:
-     - ALLOW_OVERRIDE=true
-   ports:
-     - "80:80"
-   links:
-     - db
-   volumes:
-     - ./app:/app
+    image: tutum/apache-php
+    environment:
+      - ALLOW_OVERRIDE=true
+    ports:
+      - "8008:80"
+    links:
+      - db
+    volumes:
+      - ./app:/app
+      - ./logs/apache_error.log:/var/log/apache2/error.log
+      - ./logs/apache_access.log:/var/log/apache2/access.log
 
   db:
     image: mariadb
@@ -17,9 +19,20 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: abc123
+      MYSQL_USER: cmsadmin
+      MYSQL_PASSWORD: password01
+      MYSQL_DATABASE: cmsstd
+    ports:
+      - "3315:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    links:
+      - db
+    ports:
+      - 8009:80
+    environment:
       MYSQL_USER: admin
       MYSQL_PASSWORD: test
       MYSQL_DATABASE: database
-    ports:
-      - "3315:3306"
