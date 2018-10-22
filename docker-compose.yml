@@ -10,8 +10,6 @@ services:
       - db
     volumes:
       - ./app:/app
-      - ./logs/apache_error.log:/var/log/apache2/error.log
-      - ./logs/apache_access.log:/var/log/apache2/access.log
 
   db:
     image: mariadb
