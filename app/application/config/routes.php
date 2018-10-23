@@ -53,3 +53,4 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['admin/slider_images'] = 'admin/sliderimages/index';
+$route['admin/slider_images/(:num)'] = 'admin/sliderimages/edit/$1';

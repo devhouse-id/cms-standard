@@ -86,7 +86,7 @@
                                         <?php
                                         foreach ($columns as $column) {
                                         ?>
-                                        <th><?php echo $column;?></th>
+                                        <th><?php echo $column['name'];?></th>
                                         <?php
                                         }
                                         ?>
@@ -101,12 +101,14 @@
                                         <?php
                                         foreach ($columns as $column) {
                                         ?>
-                                        <td><?php echo $row->$column ?></td>
+                                        <td><?php echo $row->$column['name'] ?></td>
                                         <?php
                                         }
                                         ?>
 
-                                        <td><button class="btn btn-warning"><i class="icofont icofont-ui-edit"></i></button><button class="btn btn-danger"><i class="icofont icofont-ui-delete"></i></button></td>
+                                        <td>
+                                            <a href=<?php echo base_url() . "index.php/admin/" . $table . "/" . $row->id ?> class="btn btn-warning"><i class="icofont icofont-ui-edit"></i></a>
+                                            <a href="#" class="btn btn-danger"><i class="icofont icofont-ui-delete"></i></a></td>
                                     </tr>
                                     <?php    
                                     }
