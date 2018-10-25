@@ -71,7 +71,7 @@
                     <div class="card-header">
                         <h5>Basic table</h5>
                         <span>use class <code>table</code> inside table element</span>
-                        <span><button class="btn btn-info"><i class="icofont icofont-ui-add"></i>Add</button></span>
+                        <span><a href="<?php echo base_url() . "index.php/admin/" . $table . "/add" ?>" class="btn btn-info"><i class="icofont icofont-ui-add"></i>Add</a></span>
                         <div class="card-header-right">
                             <i class="icofont icofont-rounded-down"></i>
                             <i class="icofont icofont-refresh"></i>

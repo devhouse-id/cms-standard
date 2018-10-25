@@ -10,6 +10,9 @@ class SliderImages extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->helper('url'); 
+        $this->load->helper('form');
+        $this->load->library('crud');
+
         $this->table = "slider_images";
         $this->columns = [
             [
@@ -38,40 +41,33 @@ class SliderImages extends CI_Controller {
                 'readonly' => false
             ]
         ];
+
+        $this->crud->init($this->table, $this->columns, $this->db, $this->load, $this->input);
     }
 
     public function index()
     {
-        $query = $this->db->query("select *" . " from " . $this->table);
-
-        $data = [
-            'columns' => $this->columns,
-            'rows' => $query->result(),
-            'table' => $this->table
-        ];
-        $this->load->view('admin/item_list', $data);
+        $this->crud->index();
     }
 
     public function edit($id)
     {
-        $query = $this->db->query(
-            "select *" . " from " . $this->table . " where id = " . $id);
-        if ($query->result()) {
-            $data = [
-                'columns' => $this->columns,
-                'table' => $this->table,
-                'row' => $query->result()[0]
-            ];
-            $this->load->view('admin/item_detail', $data);
-        }
-        else {
-            $this->load->view(
-                'errors/html/error_404',
-                [
-                    'heading' => "Not Found",
-                    'message' => $this->table . "with id = " . $id . " Not Found"
-                ]
-            );
-        }
+        $this->crud->edit($id);
+    }
+
+    public function add()
+    {
+        $this->crud->add();
+    }
+
+    public function update()
+    {
+        $this->crud->update();
+
+    }
+
+    public function create()
+    {
+        $this->crud->create();
     }
 }

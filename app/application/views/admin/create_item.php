@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="card-block">
                                     <h4 class="sub-title">Basic Inputs</h4>
-                                    <form action="<?php echo base_url() . 'index.php/admin/slider_images/update'?>" method="post">
+                                    <form action="<?php echo base_url() . 'index.php/admin/slider_images/create'?>" method="post">
                                         <span><button class="btn btn-info">Save</button></span>
                                         <?php 
                                         foreach ($columns as $column) {
@@ -98,16 +98,16 @@
                                             if ($type == 'text') { 
                                                 if ($column['readonly']) {
                                             ?>
-                                                <input type="text" class="form-control" value="<?php echo $row->$column['name'];?>" readonly="" name=<?php echo $column['name'];?>>
+                                                <input type="text" class="form-control" readonly="" name=<?php echo $column['name'];?>>
                                             <?php 
                                                 } else {
                                             ?>
-                                                <input type="text" class="form-control" value="<?php echo $row->$column['name'];?>" name=<?php echo $column['name'];?>>
+                                                <input type="text" class="form-control" name=<?php echo $column['name'];?>>
                                             <?php
                                                 }
                                             } elseif ($type == 'text_area') {
                                             ?>
-                                                <textarea rows="5" cols="5" class="form-control" placeholder="Default textarea" name=<?php echo $column['name'];?>><?php echo $row->$column['name'];?></textarea>
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Default textarea" name="<?php echo $column['name'];?>"></textarea>
                                             <?php
                                             } elseif ($type == 'options') {
                                             ?>
@@ -115,22 +115,16 @@
                                                     <option value="opt1">Select One Value Only</option>
                                                     <?php
                                                         foreach ($column['option_values'] as $option) {
-                                                            if ($row->$column['name'] == $option) {
-                                                    ?>
-                                                    <option selected="selected" value="opt2"><?php echo $option;?></option>
-                                                    <?php
-                                                            } else {
                                                     ?>
                                                     <option value="opt2"><?php echo $option;?></option>
+
                                                     <?php
-                                                            }
                                                         }
                                                     ?>
                                                 </select>
                                             <?php 
                                             } elseif ($type == 'file') {
                                             ?>
-                                                <input type="text" class="form-control" placeholder="<?php echo $row->$column['name'];?>" readonly="">
                                                 <input type="file" class="form-control" name=<?php echo $column['name'];?>>
                                             <?php
                                             }
