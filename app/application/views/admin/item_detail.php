@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="card-block">
                                     <h4 class="sub-title">Basic Inputs</h4>
-                                    <form action="<?php echo base_url() . 'index.php/admin/slider_images/update'?>" method="post">
+                                    <form action="<?php echo base_url() . 'index.php/admin/slider_images/update'?>" method="post" enctype="multipart/form-data">
                                         <span><button class="btn btn-info">Save</button></span>
                                         <?php 
                                         foreach ($columns as $column) {
@@ -112,16 +112,16 @@
                                             } elseif ($type == 'options') {
                                             ?>
                                                 <select class="form-control" name=<?php echo $column['name'];?>>
-                                                    <option value="opt1">Select One Value Only</option>
+                                                    <option value="">Select One Value Only</option>
                                                     <?php
                                                         foreach ($column['option_values'] as $option) {
                                                             if ($row->$column['name'] == $option) {
                                                     ?>
-                                                    <option selected="selected" value="opt2"><?php echo $option;?></option>
+                                                    <option selected="selected" value="<?php echo $option;?>"><?php echo $option;?></option>
                                                     <?php
                                                             } else {
                                                     ?>
-                                                    <option value="opt2"><?php echo $option;?></option>
+                                                    <option value="<?php echo $option;?>"><?php echo $option;?></option>
                                                     <?php
                                                             }
                                                         }
@@ -130,8 +130,8 @@
                                             <?php 
                                             } elseif ($type == 'file') {
                                             ?>
-                                                <input type="text" class="form-control" placeholder="<?php echo $row->$column['name'];?>" readonly="">
-                                                <input type="file" class="form-control" name=<?php echo $column['name'];?>>
+                                                <input type="text" class="form-control" placeholder="<?php echo $row->$column['name'];?>" readonly="" name="<?php echo $column['name'];?>" value="<?php echo $row->$column['name'];?>">
+                                                <input type="file" class="form-control" name=<?php echo 'upload_' . $column['name'];?>>
                                             <?php
                                             }
                                             ?>

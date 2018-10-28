@@ -2,19 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class SliderImages extends CI_Controller {
-    private $table;
-    private $columns;
-
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
-        $this->load->helper('url'); 
-        $this->load->helper('form');
-        $this->load->library('crud');
-
-        $this->table = "slider_images";
-        $this->columns = [
+        $table = "slider_images";
+        $columns = [
             [
                 'name' => 'id',
                 'type' => 'text',
@@ -42,7 +34,12 @@ class SliderImages extends CI_Controller {
             ]
         ];
 
-        $this->crud->init($this->table, $this->columns, $this->db, $this->load, $this->input);
+        $config = [
+            'table' => $table,
+            'columns' => $columns
+        ];
+
+        $this->load->library('crud', $config);
     }
 
     public function index()
@@ -63,7 +60,6 @@ class SliderImages extends CI_Controller {
     public function update()
     {
         $this->crud->update();
-
     }
 
     public function create()

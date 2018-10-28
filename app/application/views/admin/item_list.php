@@ -100,9 +100,15 @@
                                     <tr>
                                         <?php
                                         foreach ($columns as $column) {
+                                            if ($column['type'] == 'file') {
+                                        ?>
+                                        <td><a target="_blank" rel="noopener noreferrer" href="<?php echo $row->$column['name'] ?>">View Image</a></td>
+                                        <?php
+                                            } else {
                                         ?>
                                         <td><?php echo $row->$column['name'] ?></td>
                                         <?php
+                                            }
                                         }
                                         ?>
 
