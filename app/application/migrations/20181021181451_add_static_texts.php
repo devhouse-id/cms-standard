@@ -24,7 +24,13 @@ class Migration_Add_static_texts extends CI_Migration {
             'body_html' => array(
                 'type' => 'TEXT',
                 'null' => TRUE,
-            )
+            ),
+            'deleted_at' => array(
+                'type' => 'DATETIME',
+                'null' => TRUE,
+            ),
+            'created_at DATETIME',
+            'updated_at DATETIME on update NOW()'
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('static_texts');

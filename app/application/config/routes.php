@@ -57,3 +57,4 @@ $route['admin/slider_images/(:num)'] = 'admin/sliderimages/edit/$1';
 $route['admin/slider_images/add'] = 'admin/sliderimages/add';
 $route['admin/slider_images/update'] = 'admin/sliderimages/update';
 $route['admin/slider_images/create'] = 'admin/sliderimages/create';
+$route['admin/slider_images/delete/(:num)'] = 'admin/sliderimages/delete/$1';

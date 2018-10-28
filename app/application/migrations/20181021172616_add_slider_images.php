@@ -29,6 +29,12 @@ class Migration_Add_slider_images extends CI_Migration {
                 'type' => 'INT',
                 'constraint' => 5
             ),
+            'deleted_at' => array(
+                'type' => 'DATETIME',
+                'null' => TRUE,
+            ),
+            'created_at DATETIME',
+            'updated_at DATETIME on update NOW()'
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('slider_images');

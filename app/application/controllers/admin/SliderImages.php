@@ -66,4 +66,9 @@ class SliderImages extends CI_Controller {
     {
         $this->crud->create();
     }
+
+    public function delete($id)
+    {
+        $this->crud->delete($id);
+    }
 }

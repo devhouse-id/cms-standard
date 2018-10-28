@@ -114,7 +114,7 @@
 
                                         <td>
                                             <a href=<?php echo base_url() . "index.php/admin/" . $table . "/" . $row->id ?> class="btn btn-warning"><i class="icofont icofont-ui-edit"></i></a>
-                                            <a href="#" class="btn btn-danger"><i class="icofont icofont-ui-delete"></i></a></td>
+                                            <a href="<?php echo base_url() . 'index.php/admin/slider_images/delete/' . $row->id;?>" class="btn btn-danger"><i class="icofont icofont-ui-delete"></i></a></td>
                                     </tr>
                                     <?php    
                                     }

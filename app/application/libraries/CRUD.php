@@ -48,9 +48,67 @@ class CRUD {
         }
     }
 
+    private function get_update_query()
+    {
+        $data = $this->ci->input->post();
+        $set_column_query = "";
+        $index = 0;
+        foreach ($this->columns as $column) {
+            if ($column['type'] == 'file')
+            {
+                if ($data['upload_' . $column['name']] == "True") {
+                    $data[$column['name']] = $this->upload($column['name']);
+                }
+                else {
+                    continue;
+                }
+            }
+
+            if ($index > 0) {
+                $set_column_query = $set_column_query . ', ';
+            }
+
+            $set_column_query = $set_column_query . $column['name'] . " = " . "'" . $data[$column['name']] . "'";
+            $index++;
+        }
+
+        return "update " . $this->table . " set " . $set_column_query . " where id = " . $data['id'];
+    }
+
+    private function get_insert_query()
+    {
+        $data = $this->ci->input->post();
+        $query_columns = "";
+        $query_values = "";
+        $index = 0;
+
+        foreach ($this->columns as $column) {
+            if ($column['type'] == 'file')
+            {
+                if ($data['upload_' . $column['name']] == "True") {
+                    $data[$column['name']] = $this->upload($column['name']);
+                }
+                else {
+                    continue;
+                }
+            }
+
+            if ($index > 0) {
+                $query_columns = $query_columns . ', ';
+                $query_values = $query_values . ', ';
+            }
+
+            $query_columns = $query_columns . $column['name'];
+            $query_values = $query_values . "'". $data[$column['name']] . "'";
+            $index++;
+        }
+
+        return "insert into " . $this->table . " (" . $query_columns . ")" . " values (" . $query_values . ")";
+    }
+
     public function index()
     {
-        $query = $this->ci->db->query("select *" . " from " . $this->table);
+        $query = $this->ci->db->query("select *" . " from " . $this->table . " where deleted_at is null order by updated_at desc");
 
         $data = [
             'columns' => $this->columns,
@@ -63,7 +121,7 @@ class CRUD {
     public function edit($id)
     {
         $query = $this->ci->db->query(
-            "select *" . " from " . $this->table . " where id = " . $id);
+            "select *" . " from " . $this->table . " where id = " . $id . " and deleted_at is null");
         if ($query->result()) {
             $data = [
                 'columns' => $this->columns,
@@ -94,58 +152,21 @@ class CRUD {
 
     public function update()
     {
-        $data = $this->ci->input->post();
-
-        $set_column_query = "";
-        $index = 0;
-        var_dump($data);
-        foreach ($this->columns as $column) {
-            if ($column['type'] == 'file' && strlen($data[$column['name']]) == 0)
-            {
-                $data[$column['name']] = $this->upload('upload_' . $column['name']);
-            }
-
-            $set_column_query = $set_column_query . $column['name'] . " = " . "'" . $data[$column['name']] . "'";
-            if ($index < count($this->columns) - 1) {
-                $set_column_query = $set_column_query . ', ';
-            }
-            $index++;
-        }
-
-        $query = $this->ci->db->query(
-            "update " . $this->table . " set " . $set_column_query . " where id = " . $data['id']
-        );
-
-        redirect('admin/' . $this->table, 'refresh');
+        $query = $this->ci->db->query($this->get_update_query());
+        // redirect('admin/' . $this->table, 'refresh');
 
     }
 
     public function create()
     {
-        $data = $this->ci->input->post();
-        $query_columns = "";
-        $query_values = "";
-        $index = 0;
+        $query = $this->ci->db->query($this->get_insert_query());
+        // redirect('admin/' . $this->table, 'refresh');
+    }
 
-        foreach ($this->columns as $column) {
-            if ($column['type'] == 'file')
-            {
-                $data[$column['name']] = $this->upload($column['name']);
-            }
-
-            $query_columns = $query_columns . $column['name'];
-            $query_values = $query_values . "'". $data[$column['name']] . "'";
-            if ($index < count($this->columns) - 1) {
-                $query_columns = $query_columns . ', ';
-                $query_values = $query_values . ', ';
-            }
-            $index++;
-        }
-
-        $query = $this->ci->db->query(
-            "insert into " . $this->table . " (" . $query_columns . ")" . " values (" . $query_values . ")" 
-        );
-
+    public function delete($id)
+    {
+        $raw = "update " . $this->table . " set deleted_at = NOW() where id = " . $id;
+        $query = $this->ci->db->query($raw);
         redirect('admin/' . $this->table, 'refresh');
     }
 

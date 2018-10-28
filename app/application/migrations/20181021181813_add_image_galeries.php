@@ -28,7 +28,13 @@ class Migration_Add_image_galeries extends CI_Migration {
             'order_priority' => array(
                     'type' => 'INT',
                     'constraint' => 5
-            )
+            ),
+            'deleted_at' => array(
+                'type' => 'DATETIME',
+                'null' => TRUE,
+            ),
+            'created_at DATETIME',
+            'updated_at DATETIME on update NOW()'
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('image_galeries');

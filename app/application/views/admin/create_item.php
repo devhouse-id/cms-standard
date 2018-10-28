@@ -125,7 +125,8 @@
                                             <?php 
                                             } elseif ($type == 'file') {
                                             ?>
-                                                <input type="file" class="form-control" name=<?php echo 'upload_' . $column['name'];?>>
+                                                <input type="file" class="form-control" name=<?php echo $column['name'];?>>
+                                                <input type="hidden" name="<?php echo 'upload_' . $column['name'];?>" value="True">
                                             <?php
                                             }
                                             ?>

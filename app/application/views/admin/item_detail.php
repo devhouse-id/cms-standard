@@ -130,8 +130,9 @@
                                             <?php 
                                             } elseif ($type == 'file') {
                                             ?>
-                                                <input type="text" class="form-control" placeholder="<?php echo $row->$column['name'];?>" readonly="" name="<?php echo $column['name'];?>" value="<?php echo $row->$column['name'];?>">
-                                                <input type="file" class="form-control" name=<?php echo 'upload_' . $column['name'];?>>
+                                                <input type="text" class="form-control" placeholder="<?php echo $row->$column['name'];?>" readonly="">
+                                                <input type="file" class="form-control" name=<?php echo $column['name'];?>>
+                                                <input type="hidden" name="<?php echo 'upload_' . $column['name'];?>" value="<?php echo strlen($row->$column['name']) > 0? "False" : "True";?>">
                                             <?php
                                             }
                                             ?>
