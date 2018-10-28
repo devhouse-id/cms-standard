@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class StaticTexts extends CI_Controller {
+class ImageGaleries extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        $table = "static_texts";
+        $table = "slider_images";
         $columns = [
             [
                 'name' => 'id',
@@ -13,19 +13,24 @@ class StaticTexts extends CI_Controller {
                 'readonly' => true
             ],
             [
+                'name' => 'description',
+                'type' => 'text_area'
+            ],
+            [
                 'name' => 'type',
                 'type' => 'options',
                 'option_values' => [
-                    'about_us'
+                    ''
                 ]
             ],
             [
-                'name' => 'body',
-                'type' => 'text_area'
+                'name' => 'image_url',
+                'type' => 'file'
             ],
             [
-                'name' => 'body_html',
-                'type' => 'text_area'
+                'name' => 'order_priority',
+                'type' => 'text',
+                'readonly' => false
             ]
         ];
 

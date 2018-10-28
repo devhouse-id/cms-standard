@@ -49,12 +49,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
+class AdminController
+{
+    public $name;
+
+    public function __construct($table)
+    {
+        $this->name = str_replace('_', '', $table);
+    }
+}
+
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['admin/slider_images'] = 'admin/sliderimages/index';
-$route['admin/slider_images/(:num)'] = 'admin/sliderimages/edit/$1';
-$route['admin/slider_images/add'] = 'admin/sliderimages/add';
-$route['admin/slider_images/update'] = 'admin/sliderimages/update';
-$route['admin/slider_images/create'] = 'admin/sliderimages/create';
-$route['admin/slider_images/delete/(:num)'] = 'admin/sliderimages/delete/$1';
+
+$tables = [
+    'slider_images',
+    'static_texts',
+    'image_galeries'
+];
+
+foreach ($tables as $table) {
+    $controller = new AdminController($table);
+    $route['admin/' . $table] = 'admin/' . $controller->name . '/index';
+    $route['admin/' . $table . '/(:num)'] = 'admin/' . $controller->name . '/edit/$1';
+    $route['admin/' . $table . '/add'] = 'admin/' . $controller->name . '/add';
+    $route['admin/' . $table . '/update'] = 'admin/' . $controller->name . '/update';
+    $route['admin/' . $table . '/create'] = 'admin/' . $controller->name . '/create';
+    $route['admin/' . $table . '/delete/(:num)'] = 'admin/' . $controller->name . '/delete/$1';
+}
+
+

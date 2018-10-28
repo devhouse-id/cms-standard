@@ -153,14 +153,14 @@ class CRUD {
     public function update()
     {
         $query = $this->ci->db->query($this->get_update_query());
-        // redirect('admin/' . $this->table, 'refresh');
+        redirect('admin/' . $this->table, 'refresh');
 
     }
 
     public function create()
     {
         $query = $this->ci->db->query($this->get_insert_query());
-        // redirect('admin/' . $this->table, 'refresh');
+        redirect('admin/' . $this->table, 'refresh');
     }
 
     public function delete($id)
