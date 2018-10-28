@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="card-block">
                                     <h4 class="sub-title">Basic Inputs</h4>
-                                    <form action="<?php echo base_url() . 'index.php/admin/slider_images/update'?>" method="post" enctype="multipart/form-data">
+                                    <form action="<?php echo base_url() . 'index.php/admin/' . $table . '/update'?>" method="post" enctype="multipart/form-data">
                                         <span><button class="btn btn-info">Save</button></span>
                                         <?php 
                                         foreach ($columns as $column) {
